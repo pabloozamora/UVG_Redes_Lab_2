@@ -4,6 +4,7 @@ Redes
 Sección 10
 Laboratorio 2
 
+Codificador de Hamming
 
 Autores:
 Diego Andrés Morales Aquino - 21762

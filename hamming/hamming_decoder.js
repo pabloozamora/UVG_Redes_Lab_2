@@ -4,6 +4,7 @@ Redes
 Sección 10
 Laboratorio 2
 
+Decodificador de Hamming
 
 Autores:
 Diego Andrés Morales Aquino - 21762
@@ -49,6 +50,8 @@ function hammingDecode(encoded) {
         let encodedArray = encoded.split('');
         encodedArray[errorPos] = encodedArray[errorPos] === '0' ? '1' : '0';
         encoded = encodedArray.join('');
+    } else {
+        console.log('No se detectaron errores en la secuencia codificada.');
     }
 
     // Extraer los bits de data
@@ -62,12 +65,12 @@ function hammingDecode(encoded) {
     return decoded.join('');
 }
 
-rl.question('Introduce una cadena de bits codificada: ', (encodedData) => {
+rl.question('Ingrese la cadena de bits codificada: ', (encodedData) => {
     // Introducir un error en el código codificado
-    encodedData = encodedData.split('');
-    encodedData[5] = encodedData[5] === '0' ? '1' : '0'; // Introduce un error en la posición 6 (índice 5)
+    /* encodedData = encodedData.split('');
+    encodedData[11] = encodedData[11] === '0' ? '1' : '0'; // Introduce un error en la posición indicada
     encodedData = encodedData.join('');
-    console.log(`Datos codificados con error introducido: ${encodedData}`);
+    console.log(`Datos codificados con error introducido: ${encodedData}`); */
 
     let decodedData = hammingDecode(encodedData);
     console.log(`Datos decodificados: ${decodedData}`);
