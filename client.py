@@ -6,6 +6,7 @@ from noise.generate_noise import generate_noise
 
 HOST = 'localhost'
 PORT = 3000
+ERROR_PROB = 0.0001
 
 # Crear un socket TCP/IP
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,8 +25,8 @@ try:
     # Seleccionar algoritmo de detección o corrección
     method = None
     while method == None:
-      method = input("Seleccionar algoritmo a utilizar: \n1. Algoritmo de detección (Fletcher).\n2. Algoritmo de corrección (Hamming).\n")
-      if method not in ("1", "2"): method = None
+        method = input("Seleccionar algoritmo a utilizar: \n1. Algoritmo de detección (Fletcher).\n2. Algoritmo de corrección (Hamming).\n")
+        if method not in ("1", "2"): method = None
 
     # Codificar mensaje
     encoded_message = None
@@ -35,7 +36,7 @@ try:
         encoded_message = hamming_encode(binary_message)
 
     # Aplicar ruido
-    encoded_message_with_noise = generate_noise(encoded_message, 0.01)
+    encoded_message_with_noise = generate_noise(encoded_message, ERROR_PROB)
 
     # Enviar mensaje
     client_socket.sendall(encoded_message_with_noise.encode('utf-8'))

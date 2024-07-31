@@ -46,13 +46,11 @@ function hammingDecode(encoded) {
     }
 
     if (errorPos) {
-        console.log(`Bit incorrecto en la posición: ${errorPos}. Corrigiendo...`);
         let encodedArray = encoded.split('');
         encodedArray[errorPos] = encodedArray[errorPos] === '0' ? '1' : '0';
         encoded = encodedArray.join('');
         ok = false;
     } else {
-        console.log('No se detectaron errores en la secuencia codificada.');
         ok = true;
     }
 

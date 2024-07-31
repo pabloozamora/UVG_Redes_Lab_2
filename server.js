@@ -1,6 +1,7 @@
 const net = require('net');
 const readline = require('readline');
 const fletcher = require("./fletcher/fletcher_checksum.js")
+const hamming = require("./hamming/hamming_decoder.js")
 const binary_to_ascii = require("./presentation/binary_to_ascii.js")
 
 const port = 3000; 
@@ -48,6 +49,18 @@ const server = net.createServer((socket) => {
       }else{
         console.log("El mensaje contiene errores.")
       }
+    }else{
+      // Decodificar con hamming
+      const [ok, binary_message, errorPos ] = hamming.hammingDecode(encodedMessage)
+
+      if(ok){
+        console.log('No se detectaron errores en la secuencia codificada.');
+      }else{
+        console.log(`Bit incorrecto en la posición: ${errorPos}. Corrigiendo...`);
+      }
+
+      const message = binary_to_ascii(binary_message)
+      console.log(`Mensaje decodificado: ${message}`)
     }
 
   });
