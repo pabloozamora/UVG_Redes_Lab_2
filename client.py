@@ -1,4 +1,8 @@
 import socket
+from presentation.ascii_to_binary import ascii_to_binary
+from fletcher.fletcher_checksum import fletcher16_encode
+from hamming.hamming_encoder import hamming_encode
+from noise.generate_noise import generate_noise
 
 HOST = 'localhost'
 PORT = 3000
@@ -12,9 +16,30 @@ try:
     print(f"Conectado al servidor en {HOST}:{PORT}")
 
     # Enviar un mensaje al servidor
-    message = "Hola desde el cliente"
-    client_socket.sendall(message.encode('utf-8'))
-    print(f"Mensaje enviado: {message}")
+    message = input("Ingresar mensaje a enviar: ")
+
+    # Codificar mensaje a binario
+    binary_message = ascii_to_binary(message)
+
+    # Seleccionar algoritmo de detección o corrección
+    method = None
+    while method == None:
+      method = input("Seleccionar algoritmo a utilizar: \n1. Algoritmo de detección (Fletcher).\n2. Algoritmo de corrección (Hamming).\n")
+      if method not in ("1", "2"): method = None
+
+    # Codificar mensaje
+    encoded_message = None
+    if method == "1":
+        encoded_message = fletcher16_encode(binary_message)
+    else:
+        encoded_message = hamming_encode(binary_message)
+
+    # Aplicar ruido
+    encoded_message_with_noise = generate_noise(encoded_message, 0.01)
+
+    # Enviar mensaje
+    client_socket.sendall(encoded_message_with_noise.encode('utf-8'))
+    print(f"Mensaje enviado: {encoded_message}")
 
 except Exception as e:
     print(f"Error: {e}")

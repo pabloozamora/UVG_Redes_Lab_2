@@ -32,17 +32,6 @@ def fletcher16_checksum(input_value):
     checksum = (sum2 << 8) | sum1
     return bin(checksum).lstrip('0b').zfill(16)
 
-
-complete_message = input("Ingresar cadena codificada: ")
-
-# n - 16 primeros elementos son el mensaje. últimos 16 son el checksum.
-message = complete_message[0:-16] 
-checksum = complete_message[-16:]
-
-# Calcular checksum
-checksum_calc = fletcher16_checksum(message)
-
-if checksum != checksum_calc:
-    print("\033[31mChecksum incorrecto\033[0m. El mensaje contiene errores, descartando...")
-else:
-    print(f"\033[32mMensaje correcto!\033[0m El mensaje es: {message}")
+def fletcher16_encode(binary_input):
+    checksum = fletcher16_checksum(binary_input)
+    return binary_input + checksum

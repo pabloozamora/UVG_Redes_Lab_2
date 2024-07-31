@@ -4,14 +4,12 @@ Redes
 Sección 10
 Laboratorio 2
 
-Codificador Fletcher checksum
+Codificador Fletcher checksum.
 
 Autores:
 Diego Andrés Morales Aquino - 21762
 Pablo Andrés Zamora Vásquez - 21780
 */
-
-const readline = require('readline');
 
 function fletcher16Checksum(input) {
 
@@ -39,14 +37,20 @@ function fletcher16Checksum(input) {
   return checksum.toString(2).padStart(16, '0');
 }
 
+/**
+ * 
+ * @param encodedMessage Mensaje completo en binario. Ultimos 16 bits son el checksum
+ * @returns [Bool, message]. 
+ * Bool: Indica si el mensaje es correcto o no basándose en su checksum.
+ * Message: Mensaje en binario sin checksum.
+ */
+function verifyChecksum(encodedMessage){
+  const message = encodedMessage.slice(0, -16);
+  const checksum = encodedMessage.slice(-16);
 
-// Crear una interfaz de entrada/salida
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+  // Calcular checksum
+  const checksumCalc = fletcher16Checksum(message);
+  return [checksum === checksumCalc, message];
+}
 
-rl.question('Ingresar mensaje en binario a codificar: ', (message) => {
-  console.log(`Mensaje completo codificado:\n${message}\x1b[33m${fletcher16Checksum(message)}\x1b[0m`);
-  rl.close();
-});
+exports.verifyChecksum = verifyChecksum;
