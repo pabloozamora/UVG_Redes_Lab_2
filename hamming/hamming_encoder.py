@@ -41,7 +41,3 @@ def hamming_encode(data):
         encoded[parity_index] = str(parity_value)
 
     return ''.join(encoded[1:])
-
-data = input('Ingrese la cadena de bits a codificar: ')
-encoded_data = hamming_encode(data)
-print(f"Datos codificados: {encoded_data}")

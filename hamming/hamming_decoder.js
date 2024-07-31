@@ -11,13 +11,6 @@ Diego Andrés Morales Aquino - 21762
 Pablo Andrés Zamora Vásquez - 21780
 */
 
-const readline = require('readline');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
 function hammingDecode(encoded) {
     let n = encoded.length;
     let r = 0;
@@ -65,15 +58,6 @@ function hammingDecode(encoded) {
     return decoded.join('');
 }
 
-rl.question('Ingrese la cadena de bits codificada: ', (encodedData) => {
-    // Introducir un error en el código codificado
-    /* encodedData = encodedData.split('');
-    encodedData[11] = encodedData[11] === '0' ? '1' : '0'; // Introduce un error en la posición indicada
-    encodedData = encodedData.join('');
-    console.log(`Datos codificados con error introducido: ${encodedData}`); */
-
-    let decodedData = hammingDecode(encodedData);
-    console.log(`Datos decodificados: ${decodedData}`);
-
-    rl.close();
-});
+module.exports = {
+    hammingDecode
+}
