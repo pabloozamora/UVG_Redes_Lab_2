@@ -11,9 +11,16 @@ Diego Andrés Morales Aquino - 21762
 Pablo Andrés Zamora Vásquez - 21780
 */
 
+/**
+ * 
+ * @returns [correct, message, errorPosition]
+ * correct: true: mensaje correcto, false: incorrecto corregido
+ */
 function hammingDecode(encoded) {
+
     let n = encoded.length;
     let r = 0;
+    let ok = null
 
     // Determinar los bits de paridad con los que cuenta la cadena codificada
     while ((2 ** r - 1) < n) {
@@ -43,8 +50,10 @@ function hammingDecode(encoded) {
         let encodedArray = encoded.split('');
         encodedArray[errorPos] = encodedArray[errorPos] === '0' ? '1' : '0';
         encoded = encodedArray.join('');
+        ok = false;
     } else {
         console.log('No se detectaron errores en la secuencia codificada.');
+        ok = true;
     }
 
     // Extraer los bits de data
@@ -55,7 +64,7 @@ function hammingDecode(encoded) {
         }
     }
 
-    return decoded.join('');
+    return [ok, decoded.join(''), errorPos]
 }
 
 module.exports = {
