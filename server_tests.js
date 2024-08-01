@@ -22,12 +22,11 @@ const server = net.createServer((socket) => {
     if(method === "1"){
       // Decodificar con fletcher
 
-      const [ok, binary_message] = fletcher.verifyChecksum(encodedMessage)
+      const [ok] = fletcher.verifyChecksum(encodedMessage)
       if(ok){
-        const message = binary_to_ascii(binary_message)
-        results.push([method, errorProb, 1, 0])
+        results.push([method, errorProb, originalMessage.length, 1, 0])
       }else{
-        results.push([method, errorProb, 0, 0])
+        results.push([method, errorProb, originalMessage.length, 0, 0])
       }
 
     }else{
@@ -36,15 +35,15 @@ const server = net.createServer((socket) => {
 
       if(ok){
         // El mensaje no contenía errores
-        results.push([method, errorProb, 1, 0])
+        results.push([method, errorProb, originalMessage.length, 1, 0])
       }else{
         if(binary_message == originalMessage){
           // Mensaje corregido correctamente (Esta al revés creo)
           console.log("El mensaje contiene errores.")
-          results.push([method, errorProb, 0, 0])
+          results.push([method, errorProb, originalMessage.length, 0, 0])
         }else{
           // Falso corregido
-          results.push([method, errorProb, 0, 1])
+          results.push([method, errorProb, originalMessage.length, 0, 1])
         }
       }
     }

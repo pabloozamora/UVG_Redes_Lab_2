@@ -21,15 +21,16 @@ try:
 
     error_probs = [0.01, 0.001, 0.0001, 0.00001, 0.000001]
 
-    for method in ["1", "2"]: # 1: Fletcher, 2: Hamming. N iteraciones por algoritmo
-        for error_prob in error_probs:
+    for error_prob in error_probs:
 
-            for i in range(int(TESTS_NUM / len(error_probs))):
-                # Enviar un mensaje al servidor
-                message = generate_random_string(random.randint(1, 500))
+        for i in range(int(TESTS_NUM / len(error_probs))):
 
-                # Codificar mensaje a binario
-                binary_message = ascii_to_binary(message)
+            # Enviar un mensaje al servidor
+            message = generate_random_string(random.randint(1, 500))
+            # Codificar mensaje a binario
+            binary_message = ascii_to_binary(message)
+
+            for method in ["1", "2"]: # 1: Fletcher, 2: Hamming. N iteraciones por algoritmo
 
                 # Codificar mensaje
                 encoded_message = None
