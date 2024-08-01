@@ -9,7 +9,7 @@ from presentation.generate_random_string import generate_random_string
 
 HOST = 'localhost'
 PORT = 3000
-TESTS_NUM = 1000
+TESTS_NUM = 10000
 
 # Crear un socket TCP/IP
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
